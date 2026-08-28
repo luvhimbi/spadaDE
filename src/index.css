@@ -1,0 +1,307 @@
+/* =============================================
+   SPADADE VIEW BnB — Design System & Global Styles
+   Refined Editorial Boutique Aesthetic
+   ============================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+
+:root {
+  /* Brand Colours — warm, earthy, sophisticated */
+  --navy: #1C2541;
+  --navy-deep: #0B1325;
+  --navy-soft: #2E3B5C;
+  --gold: #C2A878;
+  --gold-light: #D4BE96;
+  --gold-muted: rgba(194, 168, 120, 0.15);
+  --gold-subtle: rgba(194, 168, 120, 0.08);
+  --terracotta: #A8573C;
+  --terracotta-light: #C07056;
+  --cream: #F9F8F6;
+  --cream-warm: #F5F3F0;
+  --warm-white: #ffffff;
+  --charcoal: #2A2A2A;
+  --charcoal-soft: #404040;
+  --muted: #6B6B6B;
+  --muted-light: #A3A3A3;
+  --teal: #5B8F8F;
+  --sage: #7A8F7A;
+  --border: #E5E1DC;
+  --border-light: #EEEBE7;
+
+  /* Typography */
+  --font-display: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Spacing */
+  --section-py: 120px;
+  --section-py-mobile: 72px;
+  --max-w: 1240px;
+  --gutter: 24px;
+
+  /* Elevation */
+  --shadow-subtle: 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+  --shadow-md: 0 8px 24px rgba(0,0,0,0.08);
+  --shadow-lg: 0 16px 48px rgba(0,0,0,0.1);
+  --shadow-image: 0 12px 40px rgba(27, 58, 92, 0.15);
+
+  /* Radius */
+  --r-xs: 3px;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+
+  /* Transitions */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --t-fast: 0.2s;
+  --t-base: 0.4s;
+  --t-slow: 0.7s;
+}
+
+/* =============================================
+   Reset
+   ============================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--charcoal-soft);
+  background: var(--warm-white);
+  overflow-x: hidden;
+}
+
+#root {
+  overflow-x: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+ul, ol { list-style: none; }
+
+/* =============================================
+   Typography Scale
+   ============================================= */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-display);
+  color: var(--navy);
+  line-height: 1.15;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: clamp(3rem, 7vw, 5.5rem);
+  letter-spacing: -1.5px;
+  font-weight: 300;
+}
+
+h2 {
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  letter-spacing: -0.5px;
+}
+
+h3 {
+  font-size: clamp(1.35rem, 2.5vw, 1.75rem);
+  font-weight: 500;
+}
+
+p {
+  color: var(--muted);
+}
+
+/* =============================================
+   Utility / Container
+   ============================================= */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+  width: 100%;
+}
+
+/* Section Headers */
+.section-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--gold);
+  margin-bottom: 20px;
+}
+
+.section-label::before {
+  content: '';
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.section-title {
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--muted);
+  max-width: 520px;
+}
+
+/* Buttons */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: var(--navy);
+  color: var(--warm-white);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  border: none;
+  transition: all var(--t-base) var(--ease-out);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: translateY(102%);
+  transition: transform var(--t-base) var(--ease-out);
+}
+
+.btn-primary:hover::before {
+  transform: translateY(0);
+}
+
+.btn-primary span,
+.btn-primary svg {
+  position: relative;
+  z-index: 1;
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: transparent;
+  color: var(--warm-white);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  border: 1px solid rgba(255,255,255,0.35);
+  transition: all var(--t-base) var(--ease-out);
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.6);
+}
+
+/* Divider */
+.section-divider {
+  width: 48px;
+  height: 1px;
+  background: var(--gold);
+  border: none;
+  margin: 0 auto;
+}
+
+.section-divider.left {
+  margin: 0;
+}
+
+/* =============================================
+   Scroll Reveal
+   ============================================= */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.9s var(--ease-out),
+    transform 0.9s var(--ease-out);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition:
+    opacity 0.9s var(--ease-out),
+    transform 0.9s var(--ease-out);
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition:
+    opacity 0.9s var(--ease-out),
+    transform 0.9s var(--ease-out);
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* stagger children */
+.stagger-children .reveal:nth-child(2) { transition-delay: 0.12s; }
+.stagger-children .reveal:nth-child(3) { transition-delay: 0.24s; }
+.stagger-children .reveal:nth-child(4) { transition-delay: 0.36s; }
+.stagger-children .reveal:nth-child(5) { transition-delay: 0.48s; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
