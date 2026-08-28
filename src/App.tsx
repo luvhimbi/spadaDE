@@ -3,6 +3,8 @@ import './App.css'
 import logo from './assets/logo.jpg'
 import exteriorFacade from './assets/exterior-facade.jpeg'
 import exteriorCourtyard from './assets/exterior-courtyard.jpeg'
+import Terms from './pages/Terms'
+import Privacy from './pages/Privacy'
 import roomBedroomAngle from './assets/room-bedroom-angle.jpeg'
 import roomBedroom from './assets/room-bedroom.jpeg'
 import roomDiningArea from './assets/room-dining-area.jpeg'
@@ -112,9 +114,28 @@ const ArrowR = () => (
    APP
    ============================================= */
 function App() {
+  const [view, setView] = useState<'home' | 'terms' | 'privacy'>(() => {
+    const path = window.location.pathname
+    if (path.includes('/terms')) return 'terms'
+    if (path.includes('/privacy')) return 'privacy'
+    return 'home'
+  })
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [lightbox, setLightbox] = useState<number | null>(null)
+
+  // Handle URL path changes (browser navigation)
+  useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname
+      if (path.includes('/terms')) setView('terms')
+      else if (path.includes('/privacy')) setView('privacy')
+      else setView('home')
+      window.scrollTo(0, 0)
+    }
+    window.addEventListener('popstate', handlePopState)
+    return () => window.removeEventListener('popstate', handlePopState)
+  }, [])
 
   const gallery = [
     { src: exteriorCourtyard, alt: 'Courtyard with wrought-iron balcony', cls: 'wide' },
@@ -175,9 +196,23 @@ function App() {
     return () => window.removeEventListener('keydown', onKey)
   }, [lightbox, gallery.length])
 
+  const navigateTo = (path: 'home' | 'terms' | 'privacy') => {
+    const url = path === 'home' ? '/' : `/${path}`
+    window.history.pushState({}, '', url)
+    setView(path)
+    window.scrollTo(0, 0)
+  }
+
   const goTo = (id: string) => {
     setMenuOpen(false)
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    if (view !== 'home') {
+      navigateTo('home')
+      setTimeout(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+      }, 80)
+    } else {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
   return (
@@ -185,7 +220,7 @@ function App() {
       {/* =========== NAVBAR =========== */}
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} id="nav">
         <div className="nav-inner">
-          <a href="#hero" className="nav-logo" onClick={e => { e.preventDefault(); goTo('hero') }}>
+          <a href="/" className="nav-logo" onClick={e => { e.preventDefault(); navigateTo('home') }}>
             <img src={logo} alt="Spadade View BnB Logo" />
             <div className="nav-logo-text">
               <span className="nav-logo-name">Spadade View</span>
@@ -209,8 +244,10 @@ function App() {
 
       <div className={`mobile-overlay ${menuOpen ? 'open' : ''}`} onClick={() => setMenuOpen(false)} />
 
-      {/* =========== HERO =========== */}
-      <section className="hero" id="hero">
+      {view === 'home' ? (
+        <>
+          {/* =========== HERO =========== */}
+          <section className="hero" id="hero">
         <div className="hero-bg">
           <img src={exteriorCourtyard} alt="Spadade View BnB Premium Spaces" />
           <div className="hero-overlay"></div>
@@ -543,57 +580,61 @@ function App() {
       {/* =========== CONTACT =========== */}
       <section className="contact" id="contact">
         <div className="container">
-          <div className="contact-layout">
-            <div className="contact-info-side reveal-left">
-              <div className="contact-image">
-                <img src={exteriorFacade} alt="Spadade View BnB exterior" />
-              </div>
-              <div className="contact-details">
-                <h2>Book Your Stay</h2>
-                <p className="contact-intro" style={{ marginBottom: '20px' }}>
-                  We partner with Booking.com to provide a secure and seamless reservation experience. Click below to view live availability and instantly book your stay.
-                </p>
-                <a href="https://www.booking.com/hotel/za/spadade-view.en-gb.html" target="_blank" rel="noopener noreferrer" className="btn-primary" style={{ marginBottom: '32px', display: 'inline-flex' }}>
-                  <span>Book on Booking.com</span> <ArrowR />
-                </a>
-                <div className="contact-detail-row">
-                  <MapPin />
-                  <span>9733 Laos Crescent, Extension 8, Cosmo City, Gauteng</span>
-                </div>
-                <div className="contact-detail-row">
-                  <Phone />
-                  <span>075 945 2562</span>
-                </div>
-              </div>
+          <div className="contact-wrapper">
+            {/* Booking.com CTA Card */}
+            <div className="booking-cta-card reveal">
+              <h3>Secure Your Booking</h3>
+              <p>
+                We partner with Booking.com to provide a secure and seamless reservation experience. Click below to view live availability and instantly book your stay.
+              </p>
+              <a href="https://www.booking.com/hotel/za/spadade-view.en-gb.html" target="_blank" rel="noopener noreferrer" className="btn-primary">
+                <span>Book on Booking.com</span> <ArrowR />
+              </a>
             </div>
 
-            <form className="contact-form reveal-right" onSubmit={e => e.preventDefault()}>
-              <h3 className="form-heading">General Inquiries</h3>
-              <p style={{ fontSize: '0.88rem', color: 'var(--muted)', marginBottom: '10px' }}>
-                Have questions about our rooms, location, or bookings? Send us a message directly.
-              </p>
-              <div className="form-row">
-                <div className="form-field">
-                  <label htmlFor="name">Name</label>
-                  <input type="text" id="name" placeholder="Your Name" required />
+            {/* Inquiry Card */}
+            <div className="inquiry-card reveal">
+              <div className="inquiry-card-header">
+                <h3>General Inquiries</h3>
+                <p>Have questions about our rooms, location, or amenities? Send us a message.</p>
+              </div>
+              <form onSubmit={e => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+                <div className="form-row">
+                  <div className="form-field">
+                    <label htmlFor="name">Name</label>
+                    <input type="text" id="name" placeholder="Your Name" required />
+                  </div>
+                  <div className="form-field">
+                    <label htmlFor="email">Email</label>
+                    <input type="email" id="email" placeholder="Your Email" required />
+                  </div>
                 </div>
                 <div className="form-field">
-                  <label htmlFor="email">Email</label>
-                  <input type="email" id="email" placeholder="Your Email" required />
+                  <label htmlFor="phone">Phone / WhatsApp</label>
+                  <input type="tel" id="phone" placeholder="Your Phone Number" />
                 </div>
-              </div>
-              <div className="form-field">
-                <label htmlFor="phone">Phone / WhatsApp</label>
-                <input type="tel" id="phone" placeholder="Your Phone Number" />
-              </div>
-              <div className="form-field">
-                <label htmlFor="message">Message</label>
-                <textarea id="message" placeholder="How can we help you?" required></textarea>
-              </div>
-              <button type="submit" className="btn-primary form-btn">
-                <span>Send Message</span>
-              </button>
-            </form>
+                <div className="form-field">
+                  <label htmlFor="message">Message</label>
+                  <textarea id="message" placeholder="How can we help you?" required style={{ minHeight: '120px' }}></textarea>
+                </div>
+                <button type="submit" className="btn-primary form-btn" style={{ alignSelf: 'center', padding: '16px 48px', width: '100%', maxWidth: '280px', justifyContent: 'center' }}>
+                  <span>Send Message</span>
+                </button>
+              </form>
+            </div>
+
+            {/* Map Card */}
+            <div className="map-card reveal">
+              <iframe
+                title="Google Map Location"
+                src="https://maps.google.com/maps?q=9733%20Laos%20Crescent,%20Cosmo%20City,%20Gauteng&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen={true}
+                loading="lazy"
+              ></iframe>
+            </div>
           </div>
         </div>
       </section>
@@ -604,6 +645,12 @@ function App() {
           <path d="M0,80 C320,20 640,100 960,40 C1120,16 1300,60 1440,32 L1440,120 L0,120 Z" />
         </svg>
       </div>
+        </>
+      ) : view === 'terms' ? (
+        <Terms />
+      ) : (
+        <Privacy />
+      )}
 
       {/* =========== FOOTER =========== */}
       <footer className="footer">
@@ -634,6 +681,8 @@ function App() {
               <ul>
                 <li><a href="https://www.booking.com/hotel/za/spadade-view.en-gb.html" target="_blank" rel="noopener noreferrer">Book Now</a></li>
                 <li><a href="#contact" onClick={e => { e.preventDefault(); goTo('contact') }}>Contact Us</a></li>
+                <li><a href="/terms" onClick={e => { e.preventDefault(); navigateTo('terms') }}>Terms of Service</a></li>
+                <li><a href="/privacy" onClick={e => { e.preventDefault(); navigateTo('privacy') }}>Privacy Policy</a></li>
               </ul>
             </div>
             <div className="footer-col">
