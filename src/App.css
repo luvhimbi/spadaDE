@@ -3,6 +3,22 @@
    Editorial Boutique Hotel Aesthetic
    ============================================= */
 
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -48px;
+  z-index: 3000;
+  background: var(--navy);
+  color: var(--warm-white);
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
 /* =============================================
    NAVIGATION
    ============================================= */
@@ -48,13 +64,15 @@
 
 .nav-logo img {
   height: 46px;
-  width: auto;
+  width: 46px;
+  object-fit: cover;
   border-radius: 4px;
-  transition: height 0.5s var(--ease-out);
+  transition: height 0.5s var(--ease-out), width 0.5s var(--ease-out);
 }
 
 .navbar.scrolled .nav-logo img {
   height: 38px;
+  width: 38px;
 }
 
 .nav-logo-text {
@@ -73,11 +91,11 @@
 }
 
 .nav-logo-sub {
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 2.5px;
-  color: var(--muted-light);
-  font-weight: 500;
+  color: var(--muted);
+  font-weight: 600;
 }
 
 /* Nav Links */
@@ -119,15 +137,15 @@
 /* Nav CTA */
 .nav-cta {
   padding: 10px 28px !important;
-  border: 1px solid var(--gold) !important;
-  color: var(--gold) !important;
+  border: 1px solid var(--navy) !important;
+  color: var(--navy) !important;
   font-size: 0.72rem !important;
   letter-spacing: 1.5px !important;
   transition: all var(--t-base) var(--ease-out) !important;
 }
 
 .nav-cta:hover {
-  background: var(--gold) !important;
+  background: var(--navy) !important;
   color: var(--warm-white) !important;
 }
 
@@ -330,7 +348,7 @@
 
 .hero-sub {
   font-size: 1.05rem;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255,255,255,0.92);
   max-width: 540px;
   margin: 0 auto 44px;
   line-height: 1.9;
@@ -419,10 +437,10 @@
 }
 
 .hero-scroll span {
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   text-transform: uppercase;
   letter-spacing: 3px;
-  color: rgba(255,255,255,0.35);
+  color: rgba(255,255,255,0.8);
   writing-mode: vertical-rl;
 }
 
@@ -636,10 +654,10 @@
   margin-top: 12px;
   font-family: var(--font-body);
   font-style: normal;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   text-transform: uppercase;
   letter-spacing: 2px;
-  color: var(--gold);
+  color: var(--gold-text);
   font-weight: 600;
 }
 
@@ -729,7 +747,7 @@
   font-family: var(--font-display);
   font-size: 3rem;
   font-weight: 300;
-  color: var(--border);
+  color: var(--muted);
   line-height: 1;
   margin-bottom: 20px;
   transition: color var(--t-base) var(--ease-out);
@@ -867,11 +885,11 @@
 
 .room-featured-body .room-tag {
   display: inline-block;
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 2.5px;
-  color: var(--gold);
+  color: var(--gold-text);
   margin-bottom: 20px;
 }
 
@@ -1122,9 +1140,10 @@
 }
 
 .thing-list em {
-  color: var(--gold);
+  color: var(--gold-text);
   font-style: normal;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
   letter-spacing: 0.5px;
 }
 
@@ -1146,6 +1165,55 @@
 
 
 /* =============================================
+   WELLNESS
+   ============================================= */
+.wellness-leisure {
+  padding: var(--section-py) 0;
+  background: var(--cream-warm);
+}
+
+.wellness-block {
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.wellness-block:last-child {
+  margin-bottom: 0;
+}
+
+.wellness-leisure h3 {
+  margin-bottom: 16px;
+  font-size: 2rem;
+}
+
+.about-img video,
+.about-img .media-frame {
+  width: 100%;
+  height: auto;
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-md);
+  background: var(--navy-deep);
+  aspect-ratio: 478 / 850;
+  object-fit: cover;
+  max-height: 560px;
+}
+
+.about-img img.media-frame {
+  aspect-ratio: 4 / 5;
+  max-height: none;
+  object-fit: cover;
+}
+
+@media (max-width: 768px) {
+  .wellness-leisure {
+    padding: var(--section-py-mobile) 0;
+  }
+  .wellness-block {
+    margin-bottom: 48px;
+  }
+}
+
+/* =============================================
    GALLERY
    ============================================= */
 .gallery {
@@ -1161,7 +1229,7 @@
 }
 
 .gallery-head .section-label {
-  color: var(--gold);
+  color: var(--gold-text);
 }
 
 .gallery-head .section-label::before {
@@ -1618,7 +1686,8 @@
 
 .footer-brand-logo img {
   height: 48px;
-  width: auto;
+  width: 48px;
+  object-fit: cover;
   border-radius: 4px;
 }
 
@@ -1813,7 +1882,7 @@
 }
 
 .legal-hero p {
-  color: var(--muted-light);
+  color: #E8E8E8;
   font-size: 1.1rem;
 }
 

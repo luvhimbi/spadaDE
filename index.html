@@ -2,41 +2,58 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/jpeg" href="/src/assets/logo.jpg" />
+    <link rel="icon" type="image/webp" href="/logo.webp" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Spadade View BnB — Premium accommodation in Cosmo City, Gauteng. Discover beautifully curated rooms with en-suite bathrooms, free Wi-Fi, and secure parking." />
-    <meta name="keywords" content="Spadade View BnB, Cosmo City BnB, Cosmo City accommodation, guest house Cosmo City, boutique hotel Gauteng, bed and breakfast Roodepoort" />
-    
+
+    <!-- Primary SEO Meta -->
+    <title>Spadade View BnB — Premium Bed & Breakfast in Cosmo City, Gauteng</title>
+    <meta name="description" content="Spadade View BnB offers premium accommodation in Cosmo City, Gauteng. Enjoy beautifully curated rooms with en-suite bathrooms, a rooftop lounge, in-house spa, free Wi-Fi, and secure parking. Book your stay today." />
+    <meta name="keywords" content="Spadade View BnB, Cosmo City BnB, Cosmo City accommodation, guest house Cosmo City, boutique hotel Gauteng, bed and breakfast Roodepoort, Cosmo City spa, rooftop lounge Cosmo City, affordable BnB Johannesburg, Johannesburg accommodation" />
+    <meta name="author" content="Spadade View BnB" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://spadadeviewbnb.co.za" />
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://spadadeviewbnb.co.za" />
+    <meta property="og:site_name" content="Spadade View BnB" />
     <meta property="og:title" content="Spadade View BnB — Premium Comfort & Warm Hospitality in Cosmo City" />
-    <meta property="og:description" content="Sanctuary in Cosmo City featuring beautifully curated rooms, private en-suite bathrooms, free Wi-Fi, and secure parking. Book your stay on Booking.com." />
-    <meta property="og:image" content="/src/assets/exterior-facade.jpeg" />
+    <meta property="og:description" content="A premium sanctuary in Cosmo City featuring beautifully curated rooms, rooftop lounge, in-house spa, private en-suite bathrooms, free Wi-Fi, and secure parking. Book your stay on Booking.com." />
+    <meta property="og:image" content="https://spadadeviewbnb.co.za/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_ZA" />
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image" />
-    <meta property="twitter:url" content="https://spadadeviewbnb.co.za" />
-    <meta property="twitter:title" content="Spadade View BnB — Cosmo City Premium Accommodation" />
-    <meta property="twitter:description" content="Experience premium comfort, free Wi-Fi, and secure parking in Cosmo City. Book your stay on Booking.com today." />
-    <meta property="twitter:image" content="/src/assets/exterior-facade.jpeg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://spadadeviewbnb.co.za" />
+    <meta name="twitter:title" content="Spadade View BnB — Cosmo City Premium Accommodation" />
+    <meta name="twitter:description" content="Experience premium comfort with a rooftop lounge, in-house spa, free Wi-Fi, and secure parking in Cosmo City. Book your stay on Booking.com today." />
+    <meta name="twitter:image" content="https://spadadeviewbnb.co.za/og-image.jpg" />
 
-    <!-- AEO / GEO / LLM Search Structured Data (JSON-LD) -->
+    <!-- Geo Tags for Local SEO -->
+    <meta name="geo.region" content="ZA-GP" />
+    <meta name="geo.placename" content="Cosmo City, Roodepoort" />
+    <meta name="geo.position" content="-26.030588;27.915228" />
+    <meta name="ICBM" content="-26.030588, 27.915228" />
+
+    <!-- AEO / GEO / LLM Search Structured Data (JSON-LD) — BedAndBreakfast -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "BedAndBreakfast",
       "name": "Spadade View BnB",
+      "description": "Premium bed and breakfast accommodation in Cosmo City, Gauteng. Featuring beautifully curated rooms with en-suite bathrooms, a rooftop lounge, in-house spa, free Wi-Fi, and secure parking.",
       "image": [
-        "/src/assets/logo.jpg",
-        "/src/assets/exterior-facade.jpeg",
-        "/src/assets/exterior-courtyard.jpeg",
-        "/src/assets/room-bedroom.jpeg"
+        "https://spadadeviewbnb.co.za/og-image.jpg"
       ],
       "@id": "https://spadadeviewbnb.co.za/#bedandbreakfast",
       "url": "https://spadadeviewbnb.co.za",
       "telephone": "+27759452562",
+      "email": "bookings@spadadeview.co.za",
       "priceRange": "$$",
+      "currenciesAccepted": "ZAR",
+      "paymentAccepted": "Cash, Credit Card, EFT",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "9733 Laos Crescent, Extension 8, Cosmo City",
@@ -65,41 +82,15 @@
         "closes": "23:59"
       },
       "amenityFeature": [
-        {
-          "@type": "LocationFeatureSpecification",
-          "name": "Free Wi-Fi",
-          "value": true
-        },
-        {
-          "@type": "LocationFeatureSpecification",
-          "name": "Secure Parking",
-          "value": true
-        },
-        {
-          "@type": "LocationFeatureSpecification",
-          "name": "En-suite Bathroom",
-          "value": true
-        },
-        {
-          "@type": "LocationFeatureSpecification",
-          "name": "Tea & Coffee Facilities",
-          "value": true
-        },
-        {
-          "@type": "LocationFeatureSpecification",
-          "name": "Double Bed",
-          "value": true
-        },
-        {
-          "@type": "LocationFeatureSpecification",
-          "name": "Queen Bed",
-          "value": true
-        },
-        {
-          "@type": "LocationFeatureSpecification",
-          "name": "Kitchenette",
-          "value": true
-        }
+        { "@type": "LocationFeatureSpecification", "name": "Free Wi-Fi", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Secure Parking", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "En-suite Bathroom", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Tea & Coffee Facilities", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Double Bed", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Queen Bed", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Kitchenette", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "Rooftop Lounge", "value": true },
+        { "@type": "LocationFeatureSpecification", "name": "In-house Spa", "value": true }
       ],
       "starRating": {
         "@type": "Rating",
@@ -113,12 +104,52 @@
     }
     </script>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <title>Spadade View BnB — Premium Comfort & Warm Hospitality in Cosmo City</title>
+    <!-- FAQPage Schema for Rich Snippets -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Where is Spadade View BnB located?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Spadade View BnB is located at 9733 Laos Crescent, Extension 8, Cosmo City, Roodepoort, Gauteng, South Africa."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What amenities does Spadade View BnB offer?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "We offer beautifully curated rooms with en-suite bathrooms, free Wi-Fi, secure parking, tea and coffee facilities, a rooftop lounge with panoramic views, and an in-house spa with rejuvenating treatments."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I book a stay at Spadade View BnB?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You can book your stay through Booking.com at https://www.booking.com/hotel/za/spadade-view.en-gb.html or contact us directly at bookings@spadadeview.co.za or call 075 945 2562."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What attractions are near Spadade View BnB?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nearby attractions include Clearwater Mall, Northgate Mall, Montecasino (~15 min), Walter Sisulu Botanical Garden (~25 min), Lion Park (~30 min), Croc City Crocodile Park (~15 min), and more."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <link rel="preload" as="image" href="/hero.webp" type="image/webp" fetchpriority="high" />
   </head>
   <body>
+    <noscript>You need to enable JavaScript to run Spadade View BnB website.</noscript>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

@@ -60,7 +60,7 @@ const Privacy = () => {
         <section>
           <h2>6. Contact Us</h2>
           <p>
-            If you have any questions regarding our Privacy Policy, please contact us at <strong>info@spadadeviewbnb.co.za</strong>.
+            If you have any questions regarding our Privacy Policy, please contact us at <strong>bookings@spadadeview.co.za</strong>.
           </p>
         </section>
       </div>

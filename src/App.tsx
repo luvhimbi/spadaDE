@@ -1,24 +1,27 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import './App.css'
-import logo from './assets/logo.jpg'
-import exteriorFacade from './assets/exterior-facade.jpeg'
-import exteriorCourtyard from './assets/exterior-courtyard.jpeg'
-import Terms from './pages/Terms'
-import Privacy from './pages/Privacy'
-import roomBedroomAngle from './assets/room-bedroom-angle.jpeg'
-import roomBedroom from './assets/room-bedroom.jpeg'
-import roomDiningArea from './assets/room-dining-area.jpeg'
-import spadadeCollage from './assets/spadade-collage.jpeg'
-import hallwayDecor from './assets/hallway-decor.jpg'
-import diningNookArt from './assets/dining-nook-art.jpg'
-import wallPlanters from './assets/wall-planters.jpg'
-import bathroomMarble from './assets/bathroom-marble.jpg'
-import galleryAdd1 from './assets/gallery-addition-1.jpg'
-import galleryAdd2 from './assets/gallery-addition-2.jpg'
-import galleryAdd3 from './assets/gallery-addition-3.jpg'
-import northcliffRidge from './assets/northcliff-ridge.jpg'
-import walterSisulu from './assets/walter-sisulu.jpg'
-import kloofendal from './assets/kloofendal.jpg'
+import logo from './assets/logo.webp'
+import exteriorFacade from './assets/exterior-facade.webp'
+import exteriorCourtyard from './assets/exterior-courtyard.webp'
+import roomBedroomAngle from './assets/room-bedroom-angle.webp'
+import roomBedroom from './assets/room-bedroom.webp'
+import roomBedroomSm from './assets/room-bedroom-sm.webp'
+import roomDiningArea from './assets/room-dining-area.webp'
+import spadadeCollage from './assets/spadade-collage.webp'
+import spadadeCollageSm from './assets/spadade-collage-sm.webp'
+import hallwayDecor from './assets/hallway-decor.webp'
+import diningNookArt from './assets/dining-nook-art.webp'
+import wallPlanters from './assets/wall-planters.webp'
+import bathroomMarble from './assets/bathroom-marble.webp'
+import galleryAdd1 from './assets/gallery-addition-1.webp'
+import galleryAdd2 from './assets/gallery-addition-2.webp'
+import galleryAdd3 from './assets/gallery-addition-3.webp'
+import northcliffRidge from './assets/northcliff-ridge.webp'
+import walterSisulu from './assets/walter-sisulu.webp'
+import kloofendal from './assets/kloofendal.webp'
+
+const Terms = lazy(() => import('./pages/Terms'))
+const Privacy = lazy(() => import('./pages/Privacy'))
 
 /* ===== ICONS (inline SVG) ===== */
 const Shield = () => (
@@ -176,7 +179,7 @@ function App() {
     )
     document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el))
     return () => observer.disconnect()
-  }, [])
+  }, [view])
 
   // Lock scroll
   useEffect(() => {
@@ -217,26 +220,28 @@ function App() {
 
   return (
     <>
+      <a href="#main-content" className="skip-link">Skip to content</a>
       {/* =========== NAVBAR =========== */}
       <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} id="nav">
         <div className="nav-inner">
           <a href="/" className="nav-logo" onClick={e => { e.preventDefault(); navigateTo('home') }}>
-            <img src={logo} alt="Spadade View BnB Logo" />
+            <img src={logo} alt="Spadade View BnB Logo" width={46} height={46} />
             <div className="nav-logo-text">
               <span className="nav-logo-name">Spadade View</span>
               <span className="nav-logo-sub">BnB</span>
             </div>
           </a>
 
-          <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
+          <div id="nav-links" className={`nav-links ${menuOpen ? 'open' : ''}`}>
             <a href="#about" onClick={e => { e.preventDefault(); goTo('about') }}>Our Story</a>
             <a href="#rooms" onClick={e => { e.preventDefault(); goTo('rooms') }}>Rooms</a>
             <a href="#activities" onClick={e => { e.preventDefault(); goTo('activities') }}>Things to Do</a>
+            <a href="#wellness" onClick={e => { e.preventDefault(); goTo('wellness') }}>Wellness</a>
             <a href="#gallery" onClick={e => { e.preventDefault(); goTo('gallery') }}>Gallery</a>
             <a href="https://www.booking.com/hotel/za/spadade-view.en-gb.html" target="_blank" rel="noopener noreferrer" className="nav-cta">Book Now</a>
           </div>
 
-          <button className={`menu-toggle ${menuOpen ? 'open' : ''}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu">
+          <button className={`menu-toggle ${menuOpen ? 'open' : ''}`} onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu" aria-expanded={menuOpen} aria-controls="nav-links">
             <span /><span /><span />
           </button>
         </div>
@@ -245,11 +250,18 @@ function App() {
       <div className={`mobile-overlay ${menuOpen ? 'open' : ''}`} onClick={() => setMenuOpen(false)} />
 
       {view === 'home' ? (
-        <>
+        <main id="main-content">
           {/* =========== HERO =========== */}
           <section className="hero" id="hero">
         <div className="hero-bg">
-          <img src={exteriorCourtyard} alt="Spadade View BnB Premium Spaces" />
+          <img
+            src="/hero.webp"
+            alt="Spadade View BnB courtyard and balcony"
+            width={640}
+            height={1280}
+            fetchPriority="high"
+            decoding="async"
+          />
           <div className="hero-overlay"></div>
         </div>
         <div className="container hero-content">
@@ -280,7 +292,7 @@ function App() {
         <div className="container">
           <div className="about-grid">
             <div className="about-img reveal-left">
-              <img src={spadadeCollage} alt="Courtyard at Spadade View BnB" />
+              <img src={spadadeCollage} srcSet={`${spadadeCollageSm} 400w, ${spadadeCollage} 900w`} sizes="(max-width: 768px) 400px, 900px" alt="Courtyard at Spadade View BnB" width={900} height={1125} loading="lazy" decoding="async" />
             </div>
             <div className="about-text reveal-right">
               <span className="section-label">Our Story</span>
@@ -389,7 +401,7 @@ function App() {
           {/* Featured Room */}
           <div className="room-featured reveal">
             <div className="room-featured-img">
-              <img src={roomBedroom} alt="The Spadade Suite" />
+              <img src={roomBedroom} srcSet={`${roomBedroomSm} 450w, ${roomBedroom} 900w`} sizes="(max-width: 768px) 450px, 900px" alt="The Spadade Suite" width={900} height={696} loading="lazy" decoding="async" />
             </div>
             <div className="room-featured-body">
               <span className="room-tag">Featured Room</span>
@@ -413,7 +425,7 @@ function App() {
           <div className="rooms-grid stagger-children">
             <div className="room-card reveal">
               <div className="room-card-img">
-                <img src={roomDiningArea} alt="Private dining nook" />
+                <img src={roomDiningArea} alt="Private dining nook" width={900} height={546} loading="lazy" decoding="async" />
               </div>
               <div className="room-card-body">
                 <h3>Private Dining Nook</h3>
@@ -428,7 +440,7 @@ function App() {
             </div>
             <div className="room-card reveal">
               <div className="room-card-img">
-                <img src={roomBedroomAngle} alt="Restful bedroom" />
+                <img src={roomBedroomAngle} alt="Restful bedroom" width={900} height={547} loading="lazy" decoding="async" />
               </div>
               <div className="room-card-body">
                 <h3>Restful Bedroom</h3>
@@ -444,7 +456,7 @@ function App() {
             </div>
             <div className="room-card reveal">
               <div className="room-card-img">
-                <img src={hallwayDecor} alt="Hallway with African art" />
+                <img src={hallwayDecor} alt="Hallway with African art" width={800} height={800} loading="lazy" decoding="async" />
               </div>
               <div className="room-card-body">
                 <h3>Artisan Hallway</h3>
@@ -484,7 +496,7 @@ function App() {
           <div className="things-grid">
             <div className="thing-card reveal">
               <div className="thing-img">
-                <img src="https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?q=80&w=800&auto=format&fit=crop" alt="Local Malls and Food" loading="lazy" />
+                <img src="https://images.unsplash.com/photo-1519567241046-7f570eee3ce6?q=80&w=800&auto=format&fit=crop" alt="Local Malls and Food" width={800} height={533} loading="lazy" decoding="async" />
               </div>
               <div className="thing-body">
                 <h3>Local Malls & Food</h3>
@@ -492,14 +504,15 @@ function App() {
                 <ul className="thing-list">
                   <li><span>Clearwater Mall</span></li>
                   <li><span>Blueberry Square</span></li>
+                  <li><span>Northgate Mall</span></li>
                 </ul>
               </div>
             </div>
             <div className="thing-card reveal" style={{ transitionDelay: '0.1s' }}>
               <div className="thing-img thing-slideshow">
-                <img src={walterSisulu} alt="Walter Sisulu Botanical Garden" loading="lazy" />
-                <img src={northcliffRidge} alt="Northcliff Ridge Eco Park" loading="lazy" />
-                <img src={kloofendal} alt="Kloofendal Nature Reserve" loading="lazy" />
+                <img src={walterSisulu} alt="Walter Sisulu Botanical Garden" width={800} height={533} loading="lazy" decoding="async" />
+                <img src={northcliffRidge} alt="Northcliff Ridge Eco Park" width={800} height={533} loading="lazy" decoding="async" />
+                <img src={kloofendal} alt="Kloofendal Nature Reserve" width={800} height={533} loading="lazy" decoding="async" />
               </div>
               <div className="thing-body">
                 <h3>Scenic & Romantic Spots</h3>
@@ -513,17 +526,76 @@ function App() {
             </div>
             <div className="thing-card reveal" style={{ transitionDelay: '0.2s' }}>
               <div className="thing-img">
-                <img src="https://images.unsplash.com/photo-1517400508447-f8dd518b86db?q=80&w=800&auto=format&fit=crop" alt="Entertainment Hubs" loading="lazy" />
+                <img src="https://images.unsplash.com/photo-1517400508447-f8dd518b86db?q=80&w=800&auto=format&fit=crop" alt="Entertainment Hubs" width={800} height={533} loading="lazy" decoding="async" />
               </div>
               <div className="thing-body">
                 <h3>Entertainment Hubs</h3>
                 <p className="thing-desc">Ideal for a fun day out, dinner, or a comedy show nearby.</p>
                 <ul className="thing-list">
+                  <li><span>Lion Park</span> <em>~30 min</em></li>
                   <li><span>Montecasino</span> <em>~15 min</em></li>
                   <li><span>Croc City Crocodile Park</span> <em>~15 min</em></li>
                   <li><span>Apartheid Museum</span> <em>~35 min</em></li>
                 </ul>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* =========== WELLNESS & LEISURE =========== */}
+      <section className="wellness-leisure" id="wellness">
+        <div className="container">
+          <div className="things-head reveal">
+            <span className="section-label">Wellness & Leisure</span>
+            <h2 className="section-title">Rooftop Lounge & Spa</h2>
+            <hr className="section-divider" />
+            <br />
+            <p className="section-subtitle">
+              Elevate your stay with breathtaking views and rejuvenating treatments.
+            </p>
+          </div>
+          
+          <div className="about-grid wellness-block">
+            <div className="about-img reveal-left">
+              <video
+                className="media-frame"
+                poster="/rooftop-poster.webp"
+                preload="none"
+                controls
+                playsInline
+                muted
+                loop
+                width={478}
+                height={850}
+              >
+                <source src="/rooftop-video.mp4" type="video/mp4" />
+                <track kind="captions" src="/rooftop-captions.vtt" srcLang="en" label="English" default />
+              </video>
+            </div>
+            <div className="about-text reveal-right">
+              <h3>The Rooftop Lounge</h3>
+              <p className="about-body">
+                Experience breathtaking views of the surrounding area from our exclusive rooftop lounge. It's the perfect spot to unwind, enjoy a sundowner, or simply take in the horizon.
+              </p>
+              <p className="about-body">
+                Whether you're starting your day with a fresh cup of coffee or stargazing at night, the rooftop offers a serene and open atmosphere designed for your relaxation.
+              </p>
+            </div>
+          </div>
+
+          <div className="about-grid wellness-block">
+            <div className="about-text reveal-left">
+              <h3>The Spadade Spa</h3>
+              <p className="about-body">
+                Step into a world of tranquility at our in-house spa. We offer a range of treatments designed to rejuvenate your mind, body, and spirit.
+              </p>
+              <p className="about-body">
+                Whether you're looking for a deep tissue massage to unwind after a long day, or a revitalizing facial, our experienced therapists are here to provide a personalized wellness experience. 
+              </p>
+            </div>
+            <div className="about-img reveal-right">
+              <img className="media-frame" src="/spa-image.webp" alt="Spa and Wellness at Spadade" width={900} height={1125} loading="lazy" decoding="async" />
             </div>
           </div>
         </div>
@@ -547,7 +619,7 @@ function App() {
             <div className="gallery-track" id="gallery-track">
               {gallery.map((img, i) => (
                 <div key={i} className={`carousel-cell ${img.cls}`} onClick={() => setLightbox(i)}>
-                  <img src={img.src} alt={img.alt} loading="lazy" />
+                  <img src={img.src} alt={img.alt} loading="lazy" decoding="async" width={800} height={560} />
                   <div className="carousel-cell-overlay"><Expand /></div>
                 </div>
               ))}
@@ -598,24 +670,24 @@ function App() {
                 <h3>General Inquiries</h3>
                 <p>Have questions about our rooms, location, or amenities? Send us a message.</p>
               </div>
-              <form onSubmit={e => e.preventDefault()} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <form action="https://formsubmit.co/bookings@spadadeview.co.za" method="POST" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
                 <div className="form-row">
                   <div className="form-field">
                     <label htmlFor="name">Name</label>
-                    <input type="text" id="name" placeholder="Your Name" required />
+                    <input type="text" id="name" name="name" placeholder="Your Name" required />
                   </div>
                   <div className="form-field">
                     <label htmlFor="email">Email</label>
-                    <input type="email" id="email" placeholder="Your Email" required />
+                    <input type="email" id="email" name="email" placeholder="Your Email" required />
                   </div>
                 </div>
                 <div className="form-field">
                   <label htmlFor="phone">Phone / WhatsApp</label>
-                  <input type="tel" id="phone" placeholder="Your Phone Number" />
+                  <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" />
                 </div>
                 <div className="form-field">
                   <label htmlFor="message">Message</label>
-                  <textarea id="message" placeholder="How can we help you?" required style={{ minHeight: '120px' }}></textarea>
+                  <textarea id="message" name="message" placeholder="How can we help you?" required style={{ minHeight: '120px' }}></textarea>
                 </div>
                 <button type="submit" className="btn-primary form-btn" style={{ alignSelf: 'center', padding: '16px 48px', width: '100%', maxWidth: '280px', justifyContent: 'center' }}>
                   <span>Send Message</span>
@@ -645,11 +717,13 @@ function App() {
           <path d="M0,80 C320,20 640,100 960,40 C1120,16 1300,60 1440,32 L1440,120 L0,120 Z" />
         </svg>
       </div>
-        </>
-      ) : view === 'terms' ? (
-        <Terms />
+        </main>
       ) : (
-        <Privacy />
+        <main id="main-content">
+          <Suspense fallback={<div className="legal-page" aria-busy="true" />}>
+            {view === 'terms' ? <Terms /> : <Privacy />}
+          </Suspense>
+        </main>
       )}
 
       {/* =========== FOOTER =========== */}
@@ -658,7 +732,7 @@ function App() {
           <div className="footer-top">
             <div className="footer-brand">
               <div className="footer-brand-logo">
-                <img src={logo} alt="Spadade View BnB Logo" />
+                <img src={logo} alt="Spadade View BnB Logo" width={48} height={48} />
                 <span>Spadade View BnB</span>
               </div>
               <p>
@@ -673,6 +747,7 @@ function App() {
                 <li><a href="#about" onClick={e => { e.preventDefault(); goTo('about') }}>Our Story</a></li>
                 <li><a href="#values" onClick={e => { e.preventDefault(); goTo('values') }}>Values</a></li>
                 <li><a href="#rooms" onClick={e => { e.preventDefault(); goTo('rooms') }}>Rooms</a></li>
+                <li><a href="#wellness" onClick={e => { e.preventDefault(); goTo('wellness') }}>Wellness</a></li>
                 <li><a href="#gallery" onClick={e => { e.preventDefault(); goTo('gallery') }}>Gallery</a></li>
               </ul>
             </div>
@@ -689,7 +764,7 @@ function App() {
               <h4>Contact</h4>
               <div className="footer-contact-row"><MapPin /><span>9733 Laos Crescent, Ext 8, Cosmo City</span></div>
               <div className="footer-contact-row"><Phone /><span>075 945 2562</span></div>
-              <div className="footer-contact-row"><Mail /><span>info@spadadeviewbnb.co.za</span></div>
+              <div className="footer-contact-row"><Mail /><span>bookings@spadadeview.co.za</span></div>
             </div>
           </div>
           <div className="footer-bottom">

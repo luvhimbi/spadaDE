@@ -3,15 +3,14 @@
    Refined Editorial Boutique Aesthetic
    ============================================= */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
-
 :root {
   /* Brand Colours — warm, earthy, sophisticated */
   --navy: #1C2541;
   --navy-deep: #0B1325;
   --navy-soft: #2E3B5C;
   --gold: #C2A878;
-  --gold-light: #D4BE96;
+  --gold-text: #7A5E2A;
+  --gold-light: #E4D2A8;
   --gold-muted: rgba(194, 168, 120, 0.15);
   --gold-subtle: rgba(194, 168, 120, 0.08);
   --terracotta: #A8573C;
@@ -20,17 +19,17 @@
   --cream-warm: #F5F3F0;
   --warm-white: #ffffff;
   --charcoal: #2A2A2A;
-  --charcoal-soft: #404040;
-  --muted: #6B6B6B;
-  --muted-light: #A3A3A3;
+  --charcoal-soft: #3D3D3D;
+  --muted: #4F4F4F;
+  --muted-light: #C8C8C8;
   --teal: #5B8F8F;
   --sage: #7A8F7A;
   --border: #E5E1DC;
   --border-light: #EEEBE7;
 
   /* Typography */
-  --font-display: 'Cormorant Garamond', 'Playfair Display', Georgia, serif;
-  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'Cormorant Garamond', 'Palatino Linotype', Palatino, Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
 
   /* Spacing */
   --section-py: 120px;
@@ -155,11 +154,11 @@ p {
   align-items: center;
   gap: 12px;
   font-family: var(--font-body);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 3px;
-  color: var(--gold);
+  color: var(--gold-text);
   margin-bottom: 20px;
 }
 
@@ -207,6 +206,10 @@ p {
   background: var(--gold);
   transform: translateY(102%);
   transition: transform var(--t-base) var(--ease-out);
+}
+
+.btn-primary:hover {
+  color: var(--navy-deep);
 }
 
 .btn-primary:hover::before {
